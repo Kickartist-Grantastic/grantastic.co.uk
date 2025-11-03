@@ -1,0 +1,2292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grantastic Studio | Design, Storytelling & Communication that Connects</title>
+    <meta name="description" content="Grantastic Studio helps charities, small businesses and creatives tell their story clearly through design, messaging, social content, campaign assets and compassionate visuals.">
+    <!-- Brand Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=DM+Sans:wght@700&family=Inter:wght@400;500&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
+    <style>
+        /* Brand palette */
+        /* Deep Blue: #3747a0
+           Accent Yellow: #f5cb58
+           Charcoal: #333333
+           Body Text Grey: #555555
+           Light BG: #f5f5f5
+        */
+        
+        /* === FONT STYLES === */
+        :root {
+        --font-title: 'Poppins', sans-serif;
+        --font-subtitle: 'DM Sans', sans-serif;
+        --font-body: 'Inter', sans-serif;
+        --font-accent: 'Playfair Display', serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-title);
+        font-weight: 700;
+        }
+
+        .subtitle,
+        h3.subtitle,
+        .section-subtitle {
+        font-family: var(--font-subtitle);
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        }
+
+        body, p, li, a, label, input, textarea, button {
+        font-family: var(--font-body);
+        font-weight: 400;
+        line-height: 1.6;
+        }
+
+        blockquote, em, .accent-text {
+        font-family: var(--font-accent);
+        font-style: italic;
+        color: #f5cb58; /* optional yellow accent */
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: #f5f5f5;
+            color: #333333;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        #main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-20px);
+            transition: all 0.4s ease;
+        }
+
+        #main-header.visible {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #333333;
+            font-weight: 700;
+            font-size: 1rem;
+            line-height: 1;
+            max-width: 200px;
+        }
+        .brand-logo img {
+            height: 40px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .nav-link {
+            color: #555555;
+            text-decoration: none;
+            transition: color 150ms;
+            font-size: .95rem;
+            font-weight: 500;
+        }
+        .nav-link:hover {
+            color: #3747a0;
+        }
+        .cta-button {
+            background-color: #3747a0;
+            color: #ffffff;
+            padding: .5rem 1rem;
+            border-radius: .5rem;
+            font-weight: 500;
+            text-decoration: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1),0 1px 2px -1px rgba(0,0,0,0.1);
+            transition: background-color .15s;
+        }
+        .cta-button:hover {
+            background-color: #2d3980;
+        }
+
+        /* mobile vs desktop nav */
+        .nav-desktop { display: none; column-gap: 1.5rem; align-items: center; }
+        .nav-mobile-btn { display: block; background: none; border: none; padding: 0; color: #333333; cursor: pointer; }
+        @media (min-width:768px){
+            .nav-desktop{ display:flex !important; }
+            .nav-mobile-btn{ display:none !important; }
+        }
+
+        /* mobile menu dropdown */
+        .nav-mobile-menu {
+            display: none;
+            background-color: #ffffff;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            right: 0;
+            padding: 1rem 1rem 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            z-index: 40;
+        }
+        .nav-mobile-menu.active {
+            display: block;
+        }
+        .nav-mobile-menu a {
+            display: block;
+            padding: .75rem 0;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            color: #333333;
+            text-decoration: none;
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+        .nav-mobile-menu a:last-child {
+            border-bottom: none;
+        }
+        .nav-mobile-menu .cta-button-mobile {
+            display: block;
+            margin-top: 1rem;
+            background-color: #3747a0;
+            color: #ffffff;
+            padding: .75rem 1rem;
+            border-radius: .5rem;
+            font-weight: 500;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color .15s;
+        }
+        .nav-mobile-menu .cta-button-mobile:hover {
+            background-color: #2d3980;
+        }
+
+        /* HERO */
+        #hero-section {
+            position: relative;
+            background-color: #e7be4f; /* warm yellow base */
+            color: #222222;
+            padding: 3rem 1rem 6rem;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(0,0,0,0.15);
+            z-index: 0; /* establish base layer */
+        }
+        .hero-texture {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+
+            z-index: 1; /* <- important: above hero-section bg, below shapes/text */
+
+            /* this is important: we give it the same yellow so it becomes the painted surface layer */
+            background-image: url("images/paper-texture.png");
+            background-size: cover;
+            background-position: center;
+
+            opacity: 0.75;
+            mix-blend-mode: normal;
+            filter: none;
+        }
+
+        /* main content layout */
+        .hero-inner {
+            position: relative;
+            max-width: 1280px;
+            z-index: 3;
+        }
+
+        /* top row: brand on left, nav on right */
+        .hero-top-row {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .hero-top-row {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 4rem;
+            }
+        }
+
+        /* brand lockup (logo + tape overlay) */
+        .hero-brand {
+            position: relative;
+            display: inline-block;
+            padding-top: 0.5rem;
+        }
+
+        .hero-logo-img {
+            max-width: clamp(220px, 20vw, 320px);
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+        }
+
+        /* tape image over the logo */
+        .hero-tape {
+            position: absolute;
+            top: -0.5rem;
+            left: 4rem;
+            width: 140px;
+            max-width: 40vw;
+            transform: rotate(-3deg);
+            opacity: 0.9;
+            filter: drop-shadow(0 4px 2px rgba(0,0,0,0.2));
+            pointer-events: none;
+        }
+
+        /* nav buttons in hero */
+        .hero-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .hero-nav-btn {
+            background-color: #f5cb58;
+            border: 2px solid #000000;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+            font-family: var(--font-subtitle, "DM Sans", sans-serif);
+            font-weight: 700;
+            font-size: 1rem;
+            line-height: 1.2;
+            color: #000000;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            display: inline-block;
+            min-width: 5.5rem;
+            text-align: center;
+            background-image: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.4) 0%, transparent 60%);
+        }
+
+        .hero-nav-btn:hover {
+            background-color: #ffffff;
+        }
+
+        .hero-nav-btn-accent {
+            background-color: #ffffff;
+        }
+
+        /* headline block */
+        .hero-headline-block {
+            position: relative;
+            max-width: 48rem;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        /* headline text */
+        .hero-headline {
+            margin: 0 0 2rem;
+            font-family: var(--font-title, "Poppins", sans-serif);
+            font-weight: 600;
+            line-height: 1.2;
+            font-size: clamp(2rem, 1.2vw + 1.5rem, 3rem);
+            color: #2b2b2b;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 2px rgba(0,0,0,0.15);
+        }
+
+        .hero-line {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* the blue accent word + underline */
+        .hero-accent-word {
+            color: #3747a0;
+            position: relative;
+            font-weight: 600;
+        }
+
+        .hero-accent-word::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -0.4rem;
+            height: 14px;
+            background-image: url("images/underline-scribble.svg");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            pointer-events: none;
+        }
+
+        /* CTA button below headline */
+        .hero-cta-btn {
+            background-color: #1f1f1f;
+            color: #ffffff;
+            border-radius: 2rem;
+            border: 2px solid #000000;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            cursor: pointer;
+            display: inline-block;
+            font-family: var(--font-body, "Inter", system-ui, sans-serif);
+            font-weight: 600;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            text-align: center;
+            min-width: 250px;
+            background-image: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.2) 0%, transparent 60%);
+        }
+
+        .hero-cta-btn:hover {
+            background-color: #000000;
+        }
+
+        /* floating decorative shapes (abstract blobs / lines / circles) */
+        .hero-shape {
+            position: absolute;
+            z-index: 2;
+            opacity: 0.8;
+            mix-blend-mode: multiply;
+            filter: drop-shadow(0 12px 20px rgba(0,0,0,0.4));
+            pointer-events: none;
+        }
+
+        .hero-shape-left {
+            left: -3rem;
+            bottom: -2rem;
+            width: clamp(180px, 25vw, 300px);
+            transform: rotate(-6deg);
+            animation: heroFloat1 6s ease-in-out infinite alternate;
+        }
+
+        .hero-shape-right {
+            right: -3rem;
+            top: -2rem;
+            width: clamp(200px, 25vw, 320px);
+            transform: rotate(5deg);
+            animation: heroFloat2 7s ease-in-out infinite alternate;
+        }
+
+        /* subtle float animations */
+        @keyframes heroFloat1 {
+            from { transform: translateY(0) rotate(-6deg); }
+            to   { transform: translateY(10px) rotate(-4deg); }
+        }
+
+        @keyframes heroFloat2 {
+            from { transform: translateY(0) rotate(5deg); }
+            to   { transform: translateY(-10px) rotate(7deg); }
+        }
+
+        /* responsive tweaks */
+        @media (min-width: 768px) {
+            #hero-section {
+                padding: 4rem 1rem 7rem;
+            }
+
+            .hero-headline-block {
+                text-align: center;
+            }
+
+            .hero-cta-btn {
+                font-size: 1rem;
+            }
+        }
+
+        #work {
+        position: relative;
+        padding: 5rem 1rem;
+        background-color: #fdfcf9;
+        color: #333;
+        overflow: hidden;
+        }
+
+        #work::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("images/paper-texture.png");
+        background-size: cover;
+        background-position: center;
+        opacity: 0.4;
+        mix-blend-mode: multiply;
+        pointer-events: none;
+        }
+
+        /* section heading */
+        #work .section-heading {
+        font-family: var(--font-title);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        text-align: center;
+        font-size: clamp(1.75rem, 1vw + 1.5rem, 2.25rem);
+        color: #333;
+        margin-bottom: 1rem;
+        }
+
+        #work .section-heading::after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 3px;
+        background-color: #f5cb58;
+        border-radius: 3px;
+        margin: 1rem auto 0;
+        }
+
+        #work .section-intro {
+        text-align: center;
+        max-width: 42rem;
+        margin: 0 auto 4rem;
+        color: #555;
+        font-size: 1rem;
+        line-height: 1.7;
+        }
+
+        /* case card structure */
+        .case-card {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        background-color: #ffffff;
+        border-radius: 1rem;
+        border: 1px solid rgba(0,0,0,0.08);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        margin-bottom: 4rem;
+        overflow: hidden;
+        position: relative;
+        transition: all 0.3s ease;
+        }
+
+        .case-card::after {
+        content: "";
+        position: absolute;
+        bottom: -2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        height: 1px;
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 1px;
+        }
+
+        .case-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 30px rgba(0,0,0,0.08);
+        border-color: rgba(245,203,88,0.8);
+        }
+
+        /* alternating layout on desktop */
+        @media (min-width: 900px) {
+        .case-card {
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+        }
+        .case-card.alt-layout {
+            grid-template-columns: 1fr 1fr;
+        }
+        .case-card.alt-layout .case-image-wrap {
+            order: 2;
+        }
+        }
+
+        /* image wrapper */
+        .case-image-wrap {
+        background-color: #fafafa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        }
+
+        .case-image {
+        width: 100%;
+        max-width: 500px;
+        border-radius: 0.5rem;
+        border: 2px solid #000;
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        /* body content */
+        .case-body {
+        padding: 2rem;
+        }
+
+        .case-title {
+        font-family: var(--font-title);
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: #222;
+        margin-bottom: 0.25rem;
+        }
+
+        .case-client {
+        color: #3747a0;
+        }
+
+        .case-meta {
+        font-family: var(--font-accent);
+        font-style: italic;
+        color: #3747a0;
+        font-size: 0.9rem;
+        margin-bottom: 1.25rem;
+        }
+
+        .case-text p {
+            margin-bottom: 1.25rem;
+            color: #444;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            display: block;
+        }
+
+        .case-text em {
+            display: block;
+            margin-top: 1rem;
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-weight: 500;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #d4a322; /* your richer gold */
+            text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+        }
+
+        .case-label {
+        font-family: var(--font-subtitle); /* DM Sans Bold */
+        font-weight: 700;
+        color: #333;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        line-height: 1.4;
+        margin-bottom: 0.4rem;
+        display: block;
+        width: auto;
+        min-width: 0;
+        }
+
+
+        /* responsive adjustments */
+        @media (max-width: 768px) {
+        .case-body {
+            padding: 1.5rem;
+        }
+        .case-label {
+            display: block;
+            width: auto;
+            margin-bottom: 0.25rem;
+        }
+        .case-card::after {
+            display: none;
+        }
+        }
+
+        /* Section heading shared style */
+        .section-heading {
+            font-size:2rem;
+            font-weight:700;
+            text-align:center;
+            margin-bottom:3rem;
+            color:#333333;
+        }
+        @media(min-width:768px){
+            .section-heading{ font-size:2.25rem; }
+        }
+
+        /* Cards / grid */
+        .service-card {
+            background-color:#ffffff;
+            padding:2rem;
+            border-radius:1rem;
+            box-shadow:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -2px rgba(0,0,0,0.1);
+            border:1px solid #e0e0e0;
+            transition:box-shadow .3s;
+        }
+        .service-card:hover {
+            box-shadow:0 20px 25px -5px rgba(0,0,0,0.1),0 8px 10px -6px rgba(0,0,0,0.1);
+        }
+        .service-icon {
+            font-size:3rem;
+            color:#f5cb58;
+            margin-bottom:1rem;
+        }
+
+        .grid-3-col{
+            display:grid;
+            gap:2.5rem;
+            grid-template-columns:1fr;
+        }
+        @media(min-width:768px){
+            .grid-3-col{
+                grid-template-columns:repeat(3,minmax(0,1fr));
+            }
+        }
+
+        /* Packages / Ways to Work Together */
+        #services,
+        #packages {
+        position: relative;
+        padding: 5rem 1rem;
+        background-color: #fdfcf9; /* soft off-white, warmer than #fff */
+        color: #333;
+        overflow: hidden;
+        }
+
+        /* subtle paper texture behind the whole section */
+        #services::before,
+        #packages::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("images/paper-texture.png");
+        background-size: cover;
+        background-position: center;
+        opacity: 0.4;
+        mix-blend-mode: multiply;
+        pointer-events: none;
+        }
+
+        /* top headings */
+        #services .section-heading,
+        #packages .section-heading {
+        font-family: var(--font-title);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        text-align: center;
+        font-size: clamp(1.75rem, 1vw + 1.5rem, 2.25rem);
+        color: #333;
+        margin-bottom: 1rem;
+        position: relative;
+        }
+
+        #services .section-heading::after,
+        #packages .section-heading::after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 3px;
+        background-color: #f5cb58;
+        border-radius: 3px;
+        margin: 1rem auto 0;
+        }
+
+        /* intro paragraph under heading */
+        .section-intro {
+        text-align: center;
+        max-width: 40rem;
+        margin: 0 auto 3rem;
+        color: #555;
+        font-size: 1rem;
+        line-height: 1.7;
+        font-family: var(--font-body);
+        }
+
+        /* responsive grids */
+        #services .grid-3-col,
+        #packages .packages-grid {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: 1fr;
+        max-width: 1100px;
+        margin: 0 auto;
+        }
+
+        @media (min-width: 900px) {
+        #services .grid-3-col,
+        #packages .packages-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        }
+
+        /* card shells */
+        .service-card,
+        .package-card {
+        background-color: #ffffff;
+        border: 1px solid rgba(0,0,0,0.08);
+        border-radius: 0.75rem;
+        padding: 2rem;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        position: relative;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        }
+
+        /* hover / focus state — softer and more premium than the old lift */
+        .service-card:hover,
+        .package-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 30px rgba(0,0,0,0.08);
+        border-color: rgba(245,203,88,0.8); /* warm yellow edge hint */
+        }
+
+        /* headings inside cards */
+        .service-card h3,
+        .package-card h3 {
+        font-family: var(--font-title);
+        font-weight: 700;
+        font-size: 1.15rem;
+        line-height: 1.3;
+        margin: 0 0 1rem;
+        color: #222;
+        }
+
+        /* body text inside cards */
+        .service-card p,
+        .package-card p {
+        font-family: var(--font-body);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #555;
+        margin: 0 0 1rem;
+        }
+
+        /* tagline in package cards gets special voice */
+        .package-tagline {
+        font-family: var(--font-accent);
+        font-style: italic;
+        color: #3747a0;
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 1.25rem;
+        }
+
+        /* list of what's included */
+        .package-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 2rem;
+        }
+
+        .package-list li {
+        display: flex;
+        align-items: flex-start;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: #555;
+        margin-bottom: 0.5rem;
+        font-family: var(--font-body);
+        }
+
+        /* bullet marker */
+        .package-list-icon {
+        color: #f5cb58;
+        font-weight: 700;
+        margin-right: 0.5rem;
+        line-height: 1.2;
+        }
+
+        /* CTA at bottom of each package card */
+        .package-cta {
+        background-color: #f5cb58;
+        color: #222;
+        font-weight: 600;
+        text-decoration: none;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        border: 2px solid #333;
+        text-align: center;
+        transition: all 0.25s ease;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        font-family: var(--font-body);
+        }
+
+        .package-cta:hover {
+        background-color: #ffffff;
+        color: #3747a0;
+        border-color: #3747a0;
+        box-shadow: 0 10px 16px rgba(55,71,160,0.2);
+        }
+
+        /* mobile spacing adjustments */
+        @media (max-width: 768px) {
+        .service-card,
+        .package-card {
+            padding: 1.5rem;
+        }
+
+        #services .section-heading,
+        #packages .section-heading {
+            font-size: 1.5rem;
+        }
+
+        .package-cta {
+            width: 100%;
+        }
+        }
+
+        /* Art / mental health */
+        /* === ART & WELLNESS SECTION === */
+        .art-section {
+        background-color: #3747a0;
+        color: #ffffff;
+        padding: 5rem 1rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        }
+
+        .art-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("images/paper-texture.png");
+        background-size: cover;
+        background-position: center;
+        opacity: 0.3;
+        mix-blend-mode: overlay;
+        pointer-events: none;
+        }
+
+        .art-section .section-heading {
+        font-family: var(--font-title);
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        font-size: clamp(1.75rem, 1vw + 1.5rem, 2.25rem);
+        color: #ffffff;
+        margin-bottom: 1rem;
+        }
+
+        .art-section .section-intro {
+        max-width: 46rem;
+        margin: 0 auto 3rem;
+        font-family: var(--font-body);
+        font-size: 1.1rem;
+        line-height: 1.75;
+        color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Grid layout */
+        .art-grid {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: 1fr;
+        }
+        @media (min-width: 900px) {
+        .art-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        }
+
+        /* Art cards */
+        .art-card {
+        background-color: #ffffff;
+        border-radius: 0.75rem;
+        color: #333333;
+        text-decoration: none;
+        overflow: hidden;
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .art-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .art-image {
+        width: 100%;
+        height: 14rem;
+        object-fit: cover;
+        border-bottom: 2px solid #3747a0;
+        }
+
+        .art-body {
+        padding: 1.5rem;
+        }
+
+        .art-title {
+        font-family: var(--font-title);
+        font-weight: 700;
+        font-size: 1.125rem;
+        margin-bottom: 0.5rem;
+        }
+
+        .art-quote {
+        font-family: var(--font-accent);
+        font-style: italic;
+        font-size: 0.95rem;
+        color: #555;
+        }
+
+        /* CTA link */
+        .art-cta-link {
+        display: inline-block;
+        background-color: transparent;
+        border: 2px solid #ffffff;
+        color: #ffffff;
+        font-weight: 600;
+        padding: 0.75rem 2rem;
+        border-radius: 0.75rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        }
+
+        .art-cta-link:hover {
+        background-color: #ffffff;
+        color: #3747a0;
+        transform: translateY(-2px);
+        }
+
+        /* Temporarily hide unused art pieces */
+        .art-card:nth-of-type(2),
+        .art-card:nth-of-type(3) {
+        display: none;
+        }
+
+
+        #contact {
+            background-color: #3747a0; /* full-width brand blue */
+            color: #ffffff;
+            position: relative;
+            padding: 5rem 0; /* vertical spacing */
+            overflow: hidden; /* ensures divider/halo stay cleanly inside */
+        }
+
+        /* CONTACT CALLOUT */
+        .contact-callout-wrapper{
+            background-color:#3747a0;
+            color:#ffffff;
+            padding:4rem 0;
+        }
+        .contact-card-flex{
+            display:grid;
+            grid-template-columns:1fr;
+            gap:2rem;
+            position:relative;
+            border:1px solid rgba(255,255,255,0.6);
+            border-radius:.5rem;
+            padding:2rem;
+            max-width:64rem;
+            margin:0 auto;
+        }
+        @media(min-width:768px){
+            .contact-card-flex{
+                grid-template-columns:1fr 1fr;
+                padding:3rem 3rem 4rem;
+            }
+        }
+
+        .contact-left h2{
+            font-size:2rem;
+            line-height:1.2;
+            font-weight:800;
+            margin:0 0 1.5rem;
+            color:#ffffff;
+            text-shadow:0 3px 3px rgba(0,0,0,0.3);
+        }
+        @media(min-width:768px){
+            .contact-left h2{font-size:2.25rem;}
+        }
+
+        .contact-block{
+            margin-bottom:1.5rem;
+        }
+        .contact-label{
+            display:block;
+            font-size:1rem;
+            font-weight:600;
+            margin-bottom:.5rem;
+            color:#ffffff;
+        }
+        .contact-value{
+            font-size:1.125rem;
+            font-weight:600;
+            line-height:1.4;
+            color:#ffffff;
+            text-decoration:none;
+            text-shadow:0 2px 2px rgba(0,0,0,0.4);
+        }
+        .contact-value.link{
+            border-bottom:2px solid rgba(255,255,255,0.8);
+            box-shadow:0 3px 0 rgba(0,0,0,0.4);
+        }
+
+        .social-row{
+            display:flex;
+            flex-wrap:wrap;
+            gap:1rem;
+            margin-top:2rem;
+        }
+
+        .social-icon-link {
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            width:40px;
+            height:40px;
+            border-radius:.5rem;
+            border:2px solid #ffffff;
+            box-shadow:0 4px 6px rgba(0,0,0,0.4);
+            text-decoration:none;
+            transition:background-color .2s;
+        }
+        .social-icon-link svg {
+            width:26px;
+            height:26px;
+            display: block;
+        }
+        .social-icon-link svg path {
+            fill: #ffffff;
+        }
+        .social-icon-link:hover {
+            background-color:#ffffff;
+        }
+        .social-icon-link:hover svg path {
+            fill:#3747a0;
+        }
+
+        /* yellow accent dot */
+        .accent-dot{
+            position:absolute;
+            width:2.5rem;
+            height:2.5rem;
+            border-radius:9999px;
+            background-color:#f5cb58;
+            border:2px solid #333333;
+            box-shadow:0 4px 6px rgba(0,0,0,0.4);
+            bottom:-1.25rem;
+            left:50%;
+            transform:translateX(-50%);
+        }
+
+        .contact-right{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+        }
+        .gs-logo-big{
+            width: 180px;
+            max-width: 90%;
+            border-radius:.5rem;
+            box-shadow:none;
+            background-color: transparent; /* was #ffffff */
+            overflow: visible;              /* was hidden, now we let natural edges show */
+        }
+        .gs-logo-big img {
+            display:block;
+            width:100%;
+            height:auto;
+        }
+
+        .contact-shell {
+            background-color: transparent;
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.45);
+            padding: 2rem 1.5rem 4rem;
+            position: relative;
+
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        /* left column */
+        .contact-left {
+            color: #ffffff;
+        }
+
+        .contact-heading {
+            font-family: var(--font-title); /* Poppins Bold */
+            font-weight: 700;
+            font-size: clamp(1.75rem, 1vw + 1.5rem, 2.25rem);
+            line-height: 1.25;
+            color: #ffffff;
+            margin: 0 0 2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+        }
+
+        .contact-block {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-label {
+            font-family: var(--font-subtitle); /* DM Sans Bold */
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 0.5rem;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .contact-email {
+            font-family: var(--font-body); /* Inter */
+            font-weight: 500;
+            font-size: 1.125rem;
+            color: #ffffff;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-thickness: 2px;
+            line-height: 1.4;
+        }
+
+        /* socials row on left */
+        .social-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* individual icon button */
+        .social-icon-link {
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            width:40px;
+            height:40px;
+            border-radius:.5rem;
+            border:2px solid #ffffff;
+            box-shadow:0 4px 6px rgba(0,0,0,0.4);
+            background-color: transparent;
+            text-decoration:none;
+            transition:background-color .2s;
+        }
+
+        .social-icon-link svg {
+            width:26px;
+            height:26px;
+            display:block;
+        }
+
+        /* default icon color = white for all icons */
+        .social-icon-link svg path {
+            fill:#ffffff;
+        }
+
+        /* hover state for icons in contact section */
+        .social-icon-link:hover {
+            background-color:#ffffff;
+        }
+        .social-icon-link:hover svg path {
+            fill:#3747a0; /* brand blue */
+        }
+
+        /* middle divider between columns */
+        .contact-divider {
+            width: 2px;
+            height: 100%;
+            min-height: 200px;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0) 0%,
+                rgba(255,255,255,0.4) 50%,
+                rgba(255,255,255,0) 100%
+            );
+            border-radius: 1px;
+        }
+
+        /* right column */
+        .contact-right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* logo wrapper */
+        .contact-logo {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* soft radial glow behind the GS mark */
+        .contact-logo::before {
+            content:"";
+            position:absolute;
+            left:50%;
+            top:50%;
+            transform:translate(-50%, -50%);
+            width:130%;
+            height:130%;
+            border-radius:50%;
+            background: radial-gradient(
+                circle,
+                rgba(255,255,255,0.15) 0%,
+                rgba(255,255,255,0) 70%
+            );
+            filter: blur(25px);
+            z-index:0;
+            pointer-events:none;
+        }
+
+        /* the GS mark itself */
+        .contact-logo-img {
+            position: relative;
+            z-index: 1;
+            width: clamp(180px, 20vw, 260px); /* scales up nicely on desktop */
+            height: auto;
+            display:block;
+            background: transparent;
+        }
+        .contact-bottom-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0.5rem; /* sits just above the rounded corners */
+            height: 0;
+        }
+
+        .contact-bottom-line::before {
+            content: "";
+            position: absolute;
+            left: 0.5rem;
+            right: 0.5rem;
+            top: 0;
+            border-top: 1px solid rgba(255,255,255,0.4);
+            border-radius: 0.5rem;
+            pointer-events: none;
+        }
+
+        .contact-dot {
+            position:absolute;
+            left: 50%;
+            transform: translateX(-50%) translateY(50%); /* push it down */
+            bottom: 0;
+            width:40px;
+            height:40px;
+            background-color:#f5cb58;
+            border-radius:50%;
+            box-shadow:0 6px 12px rgba(0,0,0,0.6);
+            border:2px solid #000000;
+        }
+
+        /* --- RESPONSIVE BEHAVIOUR --- */
+        @media (max-width: 768px) {
+            .contact-shell {
+                grid-template-columns: 1fr;
+                text-align: left;
+                padding: 2rem 1.25rem 3.5rem;
+            }
+
+            .contact-divider {
+                display:none;
+            }
+
+            .contact-right {
+                margin-top:2rem;
+            }
+
+            .contact-heading {
+                font-size: 1.75rem;
+            }
+
+            .contact-logo-img {
+                width: 200px;
+                margin-left: 0;
+                margin-right: auto;
+            }
+
+            .contact-bottom-bar {
+                margin-top: -1rem;
+            }
+        }
+
+        /* Footer */
+        footer{
+            background-color:#333333;
+            color:#ffffff;
+            padding:3rem 0;
+        }
+        .footer-grid{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:2rem;
+            border-bottom:1px solid #555555;
+            padding-bottom:2rem;
+            margin-bottom:2rem;
+        }
+        @media(min-width:768px){
+            .footer-grid{
+                grid-template-columns:repeat(4,1fr);
+            }
+        }
+        .footer-title{
+            font-weight:600;
+            margin-bottom:1rem;
+            color:#ffffff;
+        }
+        .footer-link{
+            color:#cccccc;
+            text-decoration:none;
+            transition:color .15s;
+            display:block;
+            margin-bottom:.5rem;
+            font-size:.9rem;
+        }
+        .footer-link:hover{
+            color:#f5cb58;
+        }
+        .footer-small{
+            font-size:.875rem;
+            color:#888888;
+        }
+
+        .footer-social-row {
+            display:flex;
+            column-gap:1rem;
+            margin-bottom:1rem;
+        }
+        .footer-social-link {
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            width:36px;
+            height:36px;
+            border-radius:.5rem;
+            background-color:#444;
+            text-decoration:none;
+            transition:background-color .2s;
+        }
+        .footer-social-link svg {
+            width:22px;
+            height:22px;
+            display: block;
+        }
+        .footer-social-link svg path {
+            fill:#ffffff;
+        }
+        .footer-social-link:hover {
+            background-color:#f5cb58;
+        }
+        .footer-social-link:hover svg path {
+            fill:#333333;
+        }
+
+        .footer-etsy-btn {
+            display:inline-block;
+            background-color:#3747a0;
+            color:#ffffff;
+            font-weight:500;
+            font-size:.875rem;
+            padding:.5rem 1rem;
+            border-radius:.5rem;
+            text-decoration:none;
+            transition:background-color .3s;
+        }
+        .footer-etsy-btn:hover{
+            background-color:#2d3980;
+        }
+
+        /* --- LIGHTBOX STYLES --- */
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+            z-index: 9999;
+        }
+
+        .lightbox-overlay.active {
+            display: flex;
+        }
+
+        .lightbox-inner {
+            background: #ffffff;
+            color: #333333;
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 0.75rem;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            position: relative;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 2px solid #000000;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.75rem;
+            background: #000000;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1;
+            border: 2px solid #ffffff;
+            border-radius: 0.5rem;
+            width: 2rem;
+            height: 2rem;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+        }
+
+        .lightbox-close:hover {
+            background: #3747a0;
+            border-color: #000000;
+            color: #ffffff;
+        }
+
+        #lightbox-image {
+            max-width: 100%;
+            max-height: 60vh;
+            object-fit: contain;
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.4);
+            background-color: #ffffff;
+            border: 2px solid #000000;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .lightbox-text {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        #lightbox-title {
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: #000000;
+            line-height: 1.3;
+            margin: 0;
+        }
+
+        #lightbox-caption {
+        color: #d4a322; /* richer, darker gold for contrast */
+        font-style: italic;
+        font-weight: 500;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25); /* subtle readability boost */
+        }
+
+        @media (min-width: 768px) {
+            #lightbox-title {
+                font-size: 1.25rem;
+            }
+            #lightbox-caption {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* === MOBILE HERO CLEANUP === */
+        @media (max-width: 768px) {
+
+        /* stack logo + buttons vertically and center them */
+        .hero-top-row {
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* center logo block and scale it up a bit */
+        .hero-brand {
+            text-align: center;
+        }
+
+        .hero-logo-img {
+            max-width: 260px; /* was max-width: clamp(...) */
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+        }
+
+        /* position the tape so it still overlaps the logo nicely on narrow screens */
+        .hero-tape {
+            left: 50%;
+            transform: translateX(-20%) rotate(-3deg);
+            top: -0.75rem;
+            width: 160px;
+        }
+
+        /* hero-nav: make it a single column of full-width buttons */
+        .hero-nav {
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .hero-nav-btn {
+            width: 100%;
+            max-width: 300px;
+            min-width: 0;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            line-height: 1.2;
+            padding: 0.9rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+            border: 2px solid #000;
+            background-color: #f5cb58;
+        }
+
+        /* make Contact visually special */
+        .hero-nav-btn.hero-nav-btn-accent {
+            background-color: #ffffff;
+            border-color: #000000;
+            font-weight: 700;
+        }
+
+        /* tighten up headline spacing below the nav */
+        .hero-headline-block {
+            text-align: center;
+            padding: 0 1rem;
+            max-width: 28rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-headline {
+            font-size: 1.75rem;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* Give headline a stronger shadow on mobile so it sits on the paper */
+        .hero-headline {
+            text-shadow: 0 2px 2px rgba(0,0,0,0.2);
+        }
+
+        /* Give a little breathing room before CTA pill */
+        .hero-cta-btn {
+            margin-top: 2rem;
+            max-width: 360px;
+            width: 100%;
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        }
+
+        @media (min-width: 1024px) {
+        .hero-logo-img {
+            max-width: clamp(350px, 34vw, 540px);
+        }
+        }
+
+        em {
+            color: #d4a322; /* deeper, richer gold for better contrast */
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        /* Make sure the project header inside each case study shows up */
+        .case-body header {
+            display: block;
+            opacity: 1;
+            pointer-events: auto;
+            transform: none;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header id="main-header">
+        <div class="container header-content">
+            <a href="#home" class="brand-logo">
+                <img src="images/Grantastic_logo_basic_2.png" alt="Grantastic Studio logo">
+            </a>
+
+            <!-- Desktop nav -->
+            <nav class="nav-desktop">
+                <a href="#hero-section" class="nav-link">Home</a>
+                <a href="#services" class="nav-link">Work</a>
+                <a href="#packages" class="nav-link">Collaborate</a>
+                <a href="#art-portfolio" class="nav-link">Art</a>
+                <a href="https://www.etsy.com/shop/GrantasticStudio?ref=seller-platform-mcnav"
+                    class="nav-link"
+                    target="_blank"
+                    rel="noopener noreferrer">Shop</a>
+                <a href="#contact" class="cta-button">Contact</a>
+            </nav>
+
+            <!-- Mobile menu button -->
+            <button id="mobile-menu-toggle" class="nav-mobile-btn" aria-label="Open menu" aria-expanded="false">
+                <!-- menu icon -->
+                <svg id="menu-icon" style="width:24px;height:24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <!-- close icon -->
+                <svg id="close-icon" style="width:24px;height:24px;display:none;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <!-- mobile menu dropdown -->
+        <nav id="mobile-menu" class="nav-mobile-menu">
+        <a href="#hero-section" class="nav-link">Home</a>
+        <a href="#services" class="nav-link">Work</a>
+        <a href="#packages" class="nav-link">Collaborate</a>
+        <a href="#art-portfolio" class="nav-link">Art</a>
+        <a href="https://www.etsy.com/shop/GrantasticStudio?ref=seller-platform-mcnav"
+            class="nav-link"
+            target="_blank"
+            rel="noopener noreferrer">Shop</a>
+        <a href="#contact" class="cta-button-mobile">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section id="hero-section">
+            <!-- decorative texture overlay -->
+            <div class="hero-texture"></div>
+
+            <!-- floating left shape -->
+            <img src="images/shape-left.png"
+                alt=""
+                class="hero-shape hero-shape-left"
+                onerror="this.style.display='none'">
+
+            <!-- floating right shape -->
+            <img src="images/shape-right.png"
+                alt=""
+                class="hero-shape hero-shape-right"
+                onerror="this.style.display='none'">
+
+            <div class="hero-inner container">
+                <!-- LOGO ROW -->
+                <div class="hero-top-row">
+                    <div class="hero-brand">
+                        <div class="hero-logo-lockup">
+                            <!-- your brandmark, can be your Grantastic Studio horizontal lockup -->
+                            <img src="images/Grantastic_logo_basic_sticker.svg"
+                                alt="Grantastic Studio"
+                                class="hero-logo-img"
+                                onerror="this.style.display='none'">
+                        </div>
+
+                        <!-- tape on logo -->
+                        <img src="images/tape.png"
+                            alt=""
+                            class="hero-tape"
+                            onerror="this.style.display='none'">
+                    </div>
+
+                    <!-- nav-style quick links (optional, can remove if you don't want these here) -->
+                    <nav class="hero-nav">
+                        <a href="#hero-section" class="hero-nav-btn">Home</a>
+                        <a href="#services" class="hero-nav-btn">Work</a>
+                        <a href="#packages" class="hero-nav-btn">Collaborate</a>
+                        <a href="#art-portfolio" class="hero-nav-btn">Art</a>
+                        <a href="https://www.etsy.com/shop/GrantasticStudio?ref=seller-platform-mcnav"
+                            class="hero-nav-btn"
+                            target="_blank"
+                            rel="noopener noreferrer">Shop</a>
+                        <a href="#contact" class="hero-nav-btn hero-nav-btn-accent">Contact</a>
+                    </nav>
+                </div>
+
+                <!-- MAIN HEADLINE BLOCK -->
+                <div class="hero-headline-block">
+                    <h1 class="hero-headline">
+                        <span class="hero-line">Design, storytelling</span>
+                        <span class="hero-line">and communication</span>
+                        <span class="hero-line">
+                            that <span class="hero-accent-word">connects</span>
+                        </span>
+                    </h1>
+
+                    <button class="hero-cta-btn" onclick="location.href='#contact'">
+                        <span class="hero-cta-btn-text">Let’s make something meaningful</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section id="services">
+        <div class="container">
+            <h2 class="section-heading">Who I Create For</h2>
+
+            <p class="section-intro">
+            I work with people who care about what they put into the world — from small studios and purpose-led teams to artists and charities building something meaningful.
+            </p>
+
+            <div class="grid-3-col">
+            <div class="service-card">
+                <h3>Small Businesses</h3>
+                <p>
+                I help independent businesses find their visual voice — creating brand systems, campaigns and content that feel authentic, not over-designed.
+                </p>
+            </div>
+
+            <div class="service-card">
+                <h3>Charities &amp; Non-Profits</h3>
+                <p>
+                Clear, accessible materials that honour your message and the people you serve. From donor communications to awareness campaigns, I design with empathy and trust in mind.
+                </p>
+            </div>
+
+            <div class="service-card">
+                <h3>Independent Creators</h3>
+                <p>
+                Visual polish and storytelling support for artists, writers and makers who want their work to connect — without losing its heart.
+                </p>
+            </div>
+            </div>
+        </div>
+        </section>
+
+        <!-- Packages / Ways to Work Together -->
+        <section id="packages">
+        <div class="container">
+            <h2 class="section-heading">How We Can Work Together</h2>
+
+            <p class="section-intro">
+            Every collaboration begins with a conversation — these are the most common ways I help clients bring their ideas to life.
+            </p>
+
+            <div class="packages-grid">
+
+            <div class="package-card">
+                <h3>Story &amp; Strategy</h3>
+                <p class="package-tagline">
+                For founders and creatives who need clarity before design — we’ll uncover what makes your work resonate.
+                </p>
+
+                <ul class="package-list">
+                <li><span class="package-list-icon">•</span> 1:1 strategy session</li>
+                <li><span class="package-list-icon">•</span> Brand tone and message outline</li>
+                <li><span class="package-list-icon">•</span> Audience &amp; purpose mapping</li>
+                <li><span class="package-list-icon">•</span> Next-step content suggestions</li>
+                </ul>
+
+                <a href="#contact" class="package-cta">Start the Conversation</a>
+            </div>
+
+            <div class="package-card">
+                <h3>Visual Identity &amp; Templates</h3>
+                <p class="package-tagline">
+                For small teams and independent creatives who want to look consistent, confident and unmistakably themselves.
+                </p>
+
+                <ul class="package-list">
+                <li><span class="package-list-icon">•</span> Logo / mark refresh</li>
+                <li><span class="package-list-icon">•</span> Colour &amp; font pairing</li>
+                <li><span class="package-list-icon">•</span> Canva / social templates</li>
+                <li><span class="package-list-icon">•</span> Mini brand guide</li>
+                </ul>
+
+                <a href="#contact" class="package-cta">Start the Conversation</a>
+            </div>
+
+            <div class="package-card">
+                <h3>Campaign &amp; Content Design</h3>
+                <p class="package-tagline">
+                For launches, appeals and awareness work — clear visuals and language that move people to care and act.
+                </p>
+
+                <ul class="package-list">
+                <li><span class="package-list-icon">•</span> Campaign look &amp; tone</li>
+                <li><span class="package-list-icon">•</span> Canva templates</li>
+                <li><span class="package-list-icon">•</span> Messaging &amp; captions</li>
+                <li><span class="package-list-icon">•</span> Supporter / donor PDF</li>
+                </ul>
+
+                <a href="#contact" class="package-cta">Start the Conversation</a>
+            </div>
+
+            </div>
+        </div>
+        </section>
+
+        <section id="work">
+        <div class="container">
+            <h2 class="section-heading">Selected Work</h2>
+
+            <p class="section-intro">
+            A few projects that show how thoughtful design can make communication clearer, kinder, and more effective.<br><br>
+            These projects were created through my ongoing freelance contributions to myaware, a UK charity supporting people my myasthenia. I've worked with their team on multiple design and communications initatives - from brand refresh proposals, to awareness campaigns and supporter resources.
+            </p>
+
+            <!-- === Project 1 === -->
+            <article class="case-card alt-layout">
+            <div class="case-image-wrap">
+                <img src="images/BJGP_Advert.svg" alt="BJGP awareness advert for myaware" class="case-image">
+            </div>
+
+            <div class="case-body">
+                <header>
+                <h3 class="case-title">
+                    BJGP Awareness Advert
+                </h3>
+                <p class="case-meta">
+                    <strong>Health communications · Print advertising · Published nationally</strong>
+                </p>
+                </header>
+
+                <div class="case-text">
+                <p>
+                    <span class="case-label">Context</span>
+                    A full-page awareness advert created for myaware and published in the British Journal of General Practice, aimed at helping GPs recognise symptoms of myasthenia and signpost patients to specialist support. The piece needed to communicate clearly within a professional medical context while remaining approachable and empathetic.
+                </p>
+
+                <p>
+                    <span class="case-label">What I did</span>
+                    I rebuilt low-resolution legacy assets for print, refined visual hierarchy and typography, and ensured strong legibility and accessibility throughout. The design used subtle human imagery and a compassionate tone to highlight the patient experience while maintaining clinical credibility.
+                </p>
+
+                <p>
+                    <span class="case-label">Impact</span>
+                    The advert delivered a confident, evidence-based message to a national medical audience and directed readers to myaware’s GP Resource Centre, strengthening awareness of the condition and reinforcing the charity’s reputation as a trusted source of medical-patient communication resources.
+                    <br>
+                    <em>Concept design created for myaware. Shown here for portfolio purposes only.</em>
+                </p>
+                </div>
+            </div>
+            </article>
+
+            <!-- === Project 2 === -->
+            <article class="case-card">
+            <div class="case-image-wrap">
+                <img src="images/Self-advocacy.svg" alt="Self-Advocacy document for myaware displayed on an iPad" class="case-image">
+            </div>
+
+            <div class="case-body">
+                <header>
+                <h3 class="case-title">
+                    Self-Advocacy Awareness Series
+                </h3>
+                <p class="case-meta">
+                    Educational design · Patient Empowerment · Accessibility-focused communications
+                </p>
+                </header>
+
+                <div class="case-text">
+                <p>
+                    <span class="case-label">Context</span>
+                    I designed a suite of self-advocacy resources created to help people living with myasthenia communicate more confidently with healthcare professionals. The written content was produced by myaware’s team and subject experts, and my role was to transform it into a set of clear, accessible, and on-brand materials - including introductory guides, symptom-tracking templates, and a dictionary of medical terminology - that formed a cohesive toolkit for awareness and empowerment.
+                </p>
+
+                    <p>
+                    <span class="case-label">What I did</span>
+                    I focused on the visual design, layout, and accessibility of each resource, ensuring consistency across the series while maintaining readability and emotional warmth. This involved structuring content for easy navigation, applying myaware’s colour palette and typography, developing simple iconography, and ensuring all text and visual elements met accessibility best practices for both digital and print use.
+                </p>
+
+                <p>
+                    <span class="case-label">Impact</span>
+                    The completed series gave myaware a professional, unified set of educational tools to share through awareness campaigns, outreach events, and digital channels. By presenting complex information in a clear, inclusive, and visually supportive way, the materials helped make self-advocacy more approachable for individuals and carers, while reinforcing myaware’s role as a trusted, empowering voice for the myasthenia community.
+                    <br>
+                    <em>Concept design created for myaware. Shown here for portfolio purposes only.</em>
+                </p>
+                </div>
+            </div>
+            </article>
+
+            <!-- === Project 3 === -->
+            <article class="case-card alt-layout">
+            <div class="case-image-wrap">
+                <img src="images/My-Journey.svg" alt="Branding Board for the myJourney Fundraising Campaign" class="case-image">
+            </div>
+
+            <div class="case-body">
+                <header>
+                <h3 class="case-title">
+                    myJourney Fundraising Graphics
+                </h3>
+                <p class="case-meta">
+                    Graphic design · Social media · Seasonal engagement
+                </p>
+                </header>
+
+                <div class="case-text">
+                <p>
+                    <span class="case-label">Context</span>
+                    I designed a series of fundraising graphics for myaware to support seasonal giving campaigns and encourage community participation throughout the year. These included general donation appeals, themed seasonal assets, and adaptable templates for supporters to share on social media or in local fundraising materials. Each piece needed to communicate warmth, trust, and inclusivity while remaining recognisably on-brand.
+                </p>
+
+                <p>
+                    <span class="case-label">What I did</span>
+                    I created a consistent visual identity for the campaign by combining myaware’s colour palette and logo with friendly typography, clear messaging, and simple iconography. I produced social-media-ready images for Facebook, Instagram, and X. For the seasonal graphics, I incorporated thematic elements (e.g. snowflakes, presents) that complemented the brand rather than overwhelming it, ensuring everything felt recognisable across platforms.
+                </p>
+
+                <p>
+                    <span class="case-label">Impact</span>
+                    The visuals helped myaware strengthen supporter engagement during key fundraising periods, providing the team with a reusable library of professional, accessible graphics that could be tailored to different campaigns. The initiative improved the consistency of the charity’s digital presence and gave staff flexible tools to promote events and appeals across the year.
+                    <br>
+                    <em>Concept design created for myaware. Shown here for portfolio purposes only.</em>
+                </p>
+                </div>
+            </div>
+            </article>
+
+        </div>
+        </section>
+
+        <!-- === Art & Wellness Section === -->
+        <section class="art-section" id="art-portfolio">
+        <div class="container">
+            <h2 class="section-heading">The Art of Resilience</h2>
+
+            <p class="section-intro">
+            Beyond client work, I explore themes of self-compassion and persistence through <strong>fantasy-inspired artwork</strong>.  
+            Each piece blends design and storytelling to celebrate recovery, courage, and the beauty of imperfection.
+            <br>
+            <br>The Art of Resilience explores the space between struggle and creativity - how design and storytelling can become acts of self-expression, healing, and connection. Each piece reflects moments of endurance and light
+            </p>
+
+            <div class="art-grid">
+            <!-- Art Card 1 -->
+            <a 
+            class="art-card"
+            data-full="images/Rest_Poster.png"
+            data-title="Rest. Then Rise Again."
+            data-quote="You are worthy of the rest you seek."
+            >
+            <img src="images/Rest_Poster.png" alt="Rest and Rise Again artwork" class="art-image">
+            <div class="art-body">
+                <h3 class="art-title">Rest. Then Rise Again.</h3>
+                <p class="art-quote">“You are worthy of the rest you seek.”</p>
+            </div>
+            </a>
+
+            <!-- Art Card 2 -->
+            <a 
+            class="art-card"
+            data-full="images/art_wyvern_full.jpg"
+            data-title="The Healing Wyvern"
+            data-quote="Your internal landscape is beautiful."
+            >
+            <img src="images/art-wyvern.jpg" alt="The Healing Wyvern artwork" class="art-image">
+            <div class="art-body">
+                <h3 class="art-title">The Healing Wyvern</h3>
+                <p class="art-quote">“Your internal landscape is beautiful.”</p>
+            </div>
+            </a>
+
+            <!-- Art Card 3 -->
+            <a 
+            class="art-card"
+            data-full="images/art_scroll_full.jpg"
+            data-title="The Scroll of Progress"
+            data-quote="Honor the small victories."
+            >
+            <img src="images/art-scroll.jpg" alt="The Scroll of Progress artwork" class="art-image">
+            <div class="art-body">
+                <h3 class="art-title">The Scroll of Progress</h3>
+                <p class="art-quote">“Honor the small victories.”</p>
+            </div>
+            </a>
+            </div>
+
+            <div style="margin-top: 3rem; text-align: center;">
+            <a href="https://www.etsy.com/shop/GrantasticStudio?ref=seller-platform-mcnav" target="_blank" class="art-cta-link">
+                View Full Art Gallery
+            </a>
+            </div>
+        </div>
+        </section>
+
+        <!-- CONTACT CALLOUT -->
+        <section id="contact">
+        <div class="container" style="max-width: 64rem;">
+
+            <div class="contact-shell">
+                <!-- LEFT SIDE -->
+                <div class="contact-left">
+                    <h2 class="contact-heading">
+                        Let’s make something<br>meaningful.
+                    </h2>
+
+                    <div class="contact-block">
+                        <p class="contact-label">Email</p>
+                        <a class="contact-email" href="mailto:business@grantastic.co.uk">
+                            business@grantastic.co.uk
+                        </a>
+                    </div>
+
+                    <div class="social-row">
+                        <!-- Instagram -->
+                        <a
+                            href="https://www.instagram.com/grantasticstudio/"
+                            class="social-icon-link"
+                            aria-label="Instagram"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm0 2h10c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3zm10 1a1 1 0 100 2 1 1 0 000-2zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z"/>
+                            </svg>
+                        </a>
+
+                        <!-- X -->
+                        <a
+                            href="https://x.com/GtasticStudio"
+                            class="social-icon-link"
+                            aria-label="X / Twitter"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M18.244 2H21l-6.59 7.532L22 22h-6.563l-4.6-6.303L5.4 22H2.64l7.09-8.11L2 2h6.682l4.167 5.727L18.244 2zm-2.308 17.42h1.812L8.15 4.47H6.19l9.746 14.95z"/>
+                            </svg>
+                        </a>
+
+                        <!-- Etsy -->
+                        <a
+                            href="https://www.etsy.com/shop/GrantasticStudio?ref=seller-platform-mcnav"
+                            class="social-icon-link"
+                            aria-label="Etsy"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            <svg class="etsy-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M7 5h10v2h-3.9v4.2h3.3v2h-3.3V18H14c1 0 1.8-.2 2.3-.5.6-.3 1-.8 1.3-1.5l1.5.5c-.4 1-.9 1.8-1.6 2.3-.7.5-1.9.8-3.5.8h-5V17H9V7H7V5z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- DIVIDER -->
+                <div class="contact-divider" aria-hidden="true"></div>
+
+                <!-- RIGHT SIDE -->
+                <div class="contact-right">
+                    <div class="contact-logo">
+                        <img src="images/BW_SQ_Grantastic.png" alt="Grantastic Studio mark" class="contact-logo-img">
+                    </div>
+                </div>
+
+                <!-- BOTTOM LINE + GOLD DOT (now INSIDE the box) -->
+                <div class="contact-bottom-line">
+                    <div class="contact-dot"></div>
+                </div>
+
+            </div><!-- /.contact-shell -->
+
+        </div><!-- /.container -->
+        </section>
+        <!-- LIGHTBOX MODAL -->
+        <div class="lightbox-overlay" id="lightbox-overlay" aria-hidden="true">
+            <div class="lightbox-inner">
+                <button class="lightbox-close" id="lightbox-close" aria-label="Close preview">×</button>
+                <img id="lightbox-image" alt="">
+                <div class="lightbox-text">
+                    <h3 id="lightbox-title"></h3>
+                    <p id="lightbox-caption" class="accent-text" style="margin-top:0.5rem;"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <img src="images/Grantastic_logo_basic_2.png" alt="Grantastic Studio logo" style="margin-bottom:1rem;max-width:200px;height:auto;border-radius:.375rem;object-fit:contain;">
+                    <p style="font-size:.875rem;color:#cccccc;">
+                        Design, storytelling and communication that connects.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Site Map</h4>
+                    <ul style="list-style:none;padding:0;margin:0;line-height:1.75;">
+                        <li><a href="#services" class="footer-link">Services</a></li>
+                        <li><a href="#packages" class="footer-link">Ways to Work Together</a></li>
+                        <li><a href="#art-portfolio" class="footer-link">Art &amp; Wellness</a></li>
+                        <li><a href="#contact" class="footer-link">Chat With Me</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Get In Touch</h4>
+                    <ul style="list-style:none;padding:0;margin:0;line-height:1.75;">
+                        <li style="display:flex;align-items:flex-start;">
+                            <span style="width:1rem;margin-right:.5rem;color:#f5cb58;font-size:1rem;">✉️</span>
+                            <a href="mailto:business@grantastic.co.uk" class="footer-link" style="margin-right:0;">business@grantastic.co.uk</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Socials & Shop</h4>
+
+                    <div class="footer-social-row">
+                        <!-- IG -->
+                        <a class="footer-social-link" href="https://www.instagram.com/grantasticstudio/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zM18 5.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                            </svg>
+                        </a>
+
+                        <!-- X -->
+                        <a class="footer-social-link" href="https://x.com/GtasticStudio" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M18 3h3l-6.5 7.4L22 21h-7l-4.4-5.8L5.6 21H3l7-8-6.4-7.9h7l4 5.3L18 3z"/>
+                            </svg>
+                        </a>
+
+                        <!-- Etsy -->
+                        <a
+                        class="footer-social-link"
+                        href="https://www.etsy.com/shop/GrantasticStudio?ref=seller-platform-mcnav"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Etsy">
+                            <svg class="etsy-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                d="M7 5h10v2h-3.9v4.2h3.3v2h-3.3V18H14c1 0 1.8-.2 2.3-.5.6-.3 1-.8 1.3-1.5l1.5.5c-.4 1-.9 1.8-1.6 2.3-.7.5-1.9.8-3.5.8h-5V17H9V7H7V5z"
+                                fill="#ffffff" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align:center;">
+                <p class="footer-small">&copy; 2025 Grantastic Studio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script>
+    // mobile menu logic
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu      = document.getElementById('mobile-menu');
+    const menuIcon        = document.getElementById('menu-icon');
+    const closeIcon       = document.getElementById('close-icon');
+    const mobileLinks     = mobileMenu.querySelectorAll('a');
+
+    function toggleMobileMenu() {
+        const isMenuOpen = mobileMenu.classList.toggle('active');
+        menuIcon.style.display  = isMenuOpen ? 'none'  : 'block';
+        closeIcon.style.display = isMenuOpen ? 'block' : 'none';
+        mobileMenuToggle.setAttribute('aria-expanded', isMenuOpen ? 'true' : 'false');
+    }
+
+    mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('active')) {
+                toggleMobileMenu();
+            }
+        });
+    });
+
+    // lightbox logic
+    const lightboxOverlay   = document.getElementById('lightbox-overlay');
+    const lightboxImage     = document.getElementById('lightbox-image');
+    const lightboxTitle     = document.getElementById('lightbox-title');
+    const lightboxCaption   = document.getElementById('lightbox-caption');
+    const lightboxCloseBtn  = document.getElementById('lightbox-close');
+
+    const artCards = document.querySelectorAll('.art-card');
+
+    artCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+        e.preventDefault(); // just in case
+        
+        const fullSrc = card.getAttribute('data-full');
+        const title   = card.getAttribute('data-title');
+        const quote   = card.getAttribute('data-quote');
+
+        // populate lightbox
+        if (fullSrc) {
+        lightboxImage.src = fullSrc;
+        lightboxImage.alt = title || '';
+        } else {
+        lightboxImage.src = '';
+        lightboxImage.alt = '';
+        }
+
+        lightboxTitle.textContent   = title || '';
+        lightboxCaption.textContent = quote || '';
+
+        // show lightbox
+        lightboxOverlay.classList.add('active');
+        lightboxOverlay.setAttribute('aria-hidden', 'false');
+    });
+    });
+
+    // close logic (keep this part)
+    function closeLightbox() {
+    lightboxOverlay.classList.remove('active');
+    lightboxOverlay.setAttribute('aria-hidden', 'true');
+    lightboxImage.src = "";
+    }
+
+    lightboxCloseBtn.addEventListener('click', closeLightbox);
+
+    lightboxOverlay.addEventListener('click', (e) => {
+    if (e.target === lightboxOverlay) {
+        closeLightbox();
+    }
+    });
+
+    document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightboxOverlay.classList.contains('active')) {
+        closeLightbox();
+    }
+    });
+
+    function closeLightbox() {
+        lightboxOverlay.classList.remove('active');
+        lightboxOverlay.setAttribute('aria-hidden', 'true');
+        lightboxImage.src = "";
+    }
+
+    lightboxCloseBtn.addEventListener('click', closeLightbox);
+
+    lightboxOverlay.addEventListener('click', (e) => {
+        if (e.target === lightboxOverlay) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightboxOverlay.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
+</script>
+<script>
+document.addEventListener("scroll", () => {
+  const header = document.getElementById("main-header");
+  const hero = document.getElementById("hero-section");
+  const heroBottom = hero.offsetTop + hero.offsetHeight;
+  const scrollY = window.scrollY || window.pageYOffset;
+
+  if (scrollY > heroBottom - 100) {
+    header.classList.add("visible");
+  } else {
+    header.classList.remove("visible");
+  }
+});
+</script>
+</body>
+</html>
